@@ -8,6 +8,7 @@
     <style>
         canvas {
             border: 1px solid #d3d3d3;
+            background-image: url("background-image.jpeg");
             background-color: #f1f1f1;
         }
     </style>
@@ -87,9 +88,8 @@
                 }
             }
             this.newPos = function() {
-                this.gravitySpeed += this.gravity;
                 this.x += this.speedX;
-                this.y += this.speedY + this.gravitySpeed;
+                this.y += this.speedY;
                 this.hitBottom();
             }
             this.hitBottom = function() {
@@ -113,6 +113,11 @@
                 }
                 return crash;
             }
+        }
+
+        function accelerate(n) {
+            if (!myGameArea.interval) {myGameArea.interval = setInterval(updateGameArea, 20);}
+            myGamePiece.gravity = n;
         }
 
         function updateGameArea() {
@@ -144,8 +149,8 @@
             myGamePiece.speedY = 0;
             if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1;}
             if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1;}
-            if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1;}
-            if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1;}
+            if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1}
+            if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1}
             myScore.text = "SCORE: " + myGameArea.frameNo;
             myScore.update();
             myGamePiece.newPos();
